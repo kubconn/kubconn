@@ -164,6 +164,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "uuganbayarmagsar@gmail.com"
 EMAIL_HOST_PASSWORD = "ldas alvq tjws fjgt"
-DEFAULT_FROM_EMAIL = "uuganbayarmagsar@gmail.com"
+DEFAULT_FROM_EMAIL = "info@kubconn.dev"
 
 EMAIL_RECEIVING_USER = ['to@gmail.com']

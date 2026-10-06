@@ -46,8 +46,8 @@ def contact(request):
             Мессеж:
             {message}
             """,
-            from_email=settings.DEFAULT_FROM_EMAIL,  # uuganbayarmagsar@gmail.com
-            to=["uuganbayarmagsar@gmail.com"],         # Хүлээн авах мэйл
+            from_email=settings.DEFAULT_FROM_EMAIL,                        # uuganbayarmagsar@gmail.com
+            to=["uuganbayarmagsar@gmail.com", "info@kubconn.dev"],         # Хүлээн авах мэйл
             reply_to=[email] if email else None,       # Хэрэглэгчийн мэйл рүү шууд Reply хийх боломжтой
         )
         
