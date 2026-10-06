@@ -750,6 +750,7 @@
 
                 <!-- Contact Form -->
                 <form id="contact-form" class="space-y-4">
+                    {% csrf_token %}
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Нэр / Байгууллага</label>
                         <input type="text" name="name" required placeholder="Таны нэр эсвэл компанийн нэр" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white focus:outline-none focus:border-cyan-400 transition-all text-sm">
@@ -903,16 +904,23 @@
                                 )?.value || ''
                             }
                         });
-
-                        const data = await response.json();
-                        if (response.ok) {
-                            alert('Баярлалаа! Таны хүсэлтийг хүлээн авлаа. KubConn-ийн инженерүүд тун удахгүй холбогдох болно.');
-                            contactForm.reset();
+                        const contentType = response.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            const data = await response.json();
+                            
+                            if (response.ok) {
+                                alert('Баярлалаа! Таны хүсэлтийг хүлээн авлаа. KubConn-ийн инженерүүд тун удахгүй холбогдох болно.');
+                                contactForm.reset();
+                            } else {
+                                alert(data.message || 'Хүсэлт илгээхэд алдаа гарлаа.');
+                            }
                         } else {
-                            alert(data.message || 'Хүсэлт илгээхэд алдаа гарлаа.');
+                            const text = await response.text();
+                            console.error("Non-JSON response received:", response.status, text);
+                            alert(`Серверийн алдаа гарлаа (Status: ${response.status}).`);
                         }
                     } catch (error) {
-                        console.error(error);
+                        console.error("error:", error);
                         alert('Сервертэй холбогдоход алдаа гарлаа.');
                     }
                 });
